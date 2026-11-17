@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Registro de Mascotas{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+  <nav class="menu">
+    <a href="{{ url_for('registro') }}">Registrar</a>
+    <a href="{{ url_for('adopcion') }}">Adopción</a>
+    {% if usuario %}
+      <a href="{{ url_for('mis_mascotas') }}">Mis mascotas</a>
+      <a href="{{ url_for('cuenta_salir') }}">Salir</a>
+    {% else %}
+      <a href="{{ url_for('cuenta_login') }}">Entrar</a>
+      <a href="{{ url_for('cuenta_registro') }}">Crear cuenta</a>
+    {% endif %}
+    <a href="{{ url_for('admin') }}">Admin</a>
+  </nav>
+
+  <main class="contenedor">
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% for categoria, mensaje in mensajes %}
+        <div class="aviso aviso-{{ categoria }}">{{ mensaje }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    {% block contenido %}{% endblock %}
+  </main>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

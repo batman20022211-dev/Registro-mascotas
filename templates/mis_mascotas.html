@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "_macros.html" as mac %}
+{% block titulo %}Mis mascotas · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla">
+  <div class="hoja">
+    <h1>Mis mascotas</h1>
+
+    <div class="lista">
+      {% for m in mascotas %}
+        <article class="item">
+          {{ mac.foto(m, "foto foto-mini") }}
+          <div class="item-info">
+            <h3>{{ m.nombre }}</h3>
+            <p>{{ m.especie }} · {{ m.raza }} · {{ m.edad }} años</p>
+            <span class="badge badge-{{ m.estado }}">{{ estado_texto(m.estado) }}</span>
+            {% if m.estado == 'rechazada' %}
+              <p class="nota">Revisa los datos, edítala y vuélvela a enviar.</p>
+            {% endif %}
+          </div>
+          {% if m.estado != 'adoptada' %}
+            <div class="acciones">
+              <a href="{{ url_for('editar_mi_mascota', mascota_id=m.id) }}" class="btn btn-azul btn-pequeno">Editar</a>
+            </div>
+          {% endif %}
+        </article>
+      {% else %}
+        <p class="vacio">Aún no has registrado mascotas.</p>
+      {% endfor %}
+    </div>
+
+    <div class="acciones centrado">
+      <a href="{{ url_for('registro') }}" class="btn btn-menta">Registrar una mascota</a>
+    </div>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

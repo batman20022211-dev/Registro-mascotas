@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% import "_macros.html" as mac %}
+{% block titulo %}Administración · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla tablilla-lila">
+  <div class="hoja">
+    <h1>Panel de administración</h1>
+    <div class="acciones centrado">
+      <a href="{{ url_for('admin_salir') }}" class="btn btn-rosa btn-pequeno">Cerrar sesión de admin</a>
+    </div>
+
+    <section class="seccion">
+      <h2>Registros por validar ({{ pendientes|length }})</h2>
+      <div class="lista">
+        {% for m in pendientes %}
+          <article class="item">
+            {{ mac.foto(m, "foto foto-mini") }}
+            <div class="item-info">
+              <h3>{{ m.nombre }} · {{ m.especie }}</h3>
+              <p>{{ m.raza }} · {{ m.edad }} años · {{ m.sexo }} · {{ m.peso }} kg</p>
+              <p class="nota">Registrado por: {{ m.usuario.correo if m.usuario else 'Sin cuenta' }}</p>
+            </div>
+            <div class="acciones">
+              <form method="post" action="{{ url_for('admin_aprobar_mascota', mascota_id=m.id) }}" class="inline">
+                <button type="submit" class="btn btn-menta btn-pequeno">Aprobar</button>
+              </form>
+              <form method="post" action="{{ url_for('admin_rechazar_mascota', mascota_id=m.id) }}" class="inline">
+                <button type="submit" class="btn btn-rosa btn-pequeno">Rechazar</button>
+              </form>
+              <a href="{{ url_for('admin_editar_mascota', mascota_id=m.id) }}" class="btn btn-azul btn-pequeno">Editar</a>
+            </div>
+          </article>
+        {% else %}
+          <p class="vacio">No hay registros pendientes 🎉</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2>Solicitudes de adopción ({{ solicitudes|length }})</h2>
+      <div class="lista">
+        {% for s in solicitudes %}
+          <article class="item">
+            <div class="item-info">
+              <h3>{{ s.mascota.nombre }} ← {{ s.datos.nombre }}</h3>
+              <p>Correo: {{ s.datos.correo }} · Teléfono: {{ s.datos.telefono }} · Edad: {{ s.datos.edad }}</p>
+              <details>
+                <summary>Ver solicitud completa</summary>
+                <ul class="detalle">
+                  {% for clave, etiqueta in campos_adopcion.items() %}
+                    <li><b>{{ etiqueta }}:</b> {{ s.datos[clave] }}</li>
+                  {% endfor %}
+                </ul>
+              </details>
+            </div>
+            <div class="acciones">
+              <form method="post" action="{{ url_for('admin_aprobar_solicitud', solicitud_id=s.id) }}" class="inline">
+                <button type="submit" class="btn btn-menta btn-pequeno">Aprobar adopción</button>
+              </form>
+              <form method="post" action="{{ url_for('admin_rechazar_solicitud', solicitud_id=s.id) }}" class="inline">
+                <button type="submit" class="btn btn-rosa btn-pequeno">Rechazar</button>
+              </form>
+            </div>
+          </article>
+        {% else %}
+          <p class="vacio">No hay solicitudes pendientes.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2>Usuarios ({{ usuarios|length }})</h2>
+      <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th>Nombre</th><th>Correo</th><th>Mascotas</th><th>Solicitudes</th><th></th></tr></thead>
+          <tbody>
+            {% for u in usuarios %}
+              <tr>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.correo }}</td>
+                <td>{{ u.mascotas|length }}</td>
+                <td>{{ u.solicitudes|length }}</td>
+                <td>
+                  <form method="post" action="{{ url_for('admin_eliminar_usuario', usuario_id=u.id) }}" class="inline"
+                        onsubmit="return confirm('¿Eliminar esta cuenta? Sus mascotas se conservan sin dueño.');">
+                    <button type="submit" class="btn btn-rosa btn-pequeno">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="5" class="vacio">No hay cuentas creadas.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2>Todas las mascotas ({{ mascotas|length }})</h2>
+      <div class="tabla-wrap">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Foto</th><th>Nombre</th><th>Especie</th><th>Estado</th>
+              <th>En adopción</th><th>Registrada por</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in mascotas %}
+              <tr>
+                <td>{{ mac.foto(m, "foto foto-mini") }}</td>
+                <td>{{ m.nombre }}</td>
+                <td>{{ m.especie }}</td>
+                <td><span class="badge badge-{{ m.estado }}">{{ estado_texto(m.estado) }}</span></td>
+                <td>{{ 'Sí' if m.en_adopcion else 'No' }}</td>
+                <td>{{ m.usuario.correo if m.usuario else 'Sin cuenta' }}</td>
+                <td>
+                  <div class="acciones">
+                    <a href="{{ url_for('admin_editar_mascota', mascota_id=m.id) }}" class="btn btn-azul btn-pequeno">Editar</a>
+                    <form method="post" action="{{ url_for('admin_eliminar_mascota', mascota_id=m.id) }}" class="inline"
+                          onsubmit="return confirm('¿Eliminar esta mascota? No se puede deshacer.');">
+                      <button type="submit" class="btn btn-rosa btn-pequeno">Eliminar</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% else %}
+              <tr><td colspan="7" class="vacio">Todavía no hay mascotas.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

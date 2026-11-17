@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Crear cuenta · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla tablilla-lila">
+  <div class="hoja">
+    <h1>Crear cuenta</h1>
+    <p class="intro">Necesitas una cuenta para registrar mascotas y pedir adopciones</p>
+    <form method="post" class="formulario">
+      <label>Nombre completo *
+        <input type="text" name="nombre" required autocomplete="name">
+      </label>
+      <label>Correo *
+        <input type="email" name="correo" required autocomplete="email">
+      </label>
+      <div class="fila">
+        <label>Contraseña * <small>(mínimo 6 caracteres)</small>
+          <input type="password" name="contrasena" minlength="6" required autocomplete="new-password">
+        </label>
+        <label>Repite la contraseña *
+          <input type="password" name="confirmar" minlength="6" required autocomplete="new-password">
+        </label>
+      </div>
+      <div class="fila">
+        <a href="{{ url_for('cuenta_login') }}" class="btn btn-rosa">Ya tengo cuenta</a>
+        <button type="submit" class="btn btn-menta">Crear cuenta</button>
+      </div>
+    </form>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

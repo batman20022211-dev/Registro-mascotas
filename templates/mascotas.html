@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Mascotas · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla">
+  <div class="hoja">
+    <h1>Mascotas</h1>
+    {% if imagenes %}
+      <div class="galeria">
+        {% for img in imagenes %}
+          <figure>
+            <img src="{{ url_for('static', filename='i/' ~ img) }}" alt="Mascota {{ img.rsplit('.', 1)[0] }}" loading="lazy">
+            <figcaption>{{ img.rsplit('.', 1)[0] }}</figcaption>
+          </figure>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="vacio">Aún no hay imágenes. Agrega archivos llamados 1.jpg, 2.jpg, 3.jpg… en la carpeta <b>static/i</b>.</p>
+    {% endif %}
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,429 @@
+:root {
+  --rosa: #f9d5e0;
+  --menta: #d3f2e6;
+  --lila: #e4dbf6;
+  --durazno: #ffe3cc;
+  --azul: #d5e8f9;
+  --amarillo: #fff3c4;
+  --texto: #5d5672;
+  --sombra: 0 10px 25px rgba(93, 86, 114, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Nunito", system-ui, sans-serif;
+  color: var(--texto);
+  background: linear-gradient(135deg, var(--azul), var(--lila) 50%, var(--durazno));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* ---------- Menú ---------- */
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 18px 10px;
+}
+.menu a {
+  text-decoration: none;
+  color: var(--texto);
+  background: #ffffffcc;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: var(--sombra);
+  transition: transform .15s;
+}
+.menu a:hover { transform: translateY(-2px); }
+
+.contenedor {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 10px 16px 60px;
+}
+
+/* ---------- Tablilla (clipboard) ---------- */
+.tablilla {
+  position: relative;
+  background: var(--rosa);
+  border-radius: 22px;
+  padding: 62px 22px 22px;
+  box-shadow: var(--sombra);
+  margin-bottom: 30px;
+}
+.tablilla-lila { background: var(--lila); }
+
+.clip {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 56px;
+  background: linear-gradient(#f4f4f9, #c4c4d4);
+  border-radius: 12px 12px 6px 6px;
+  box-shadow: inset 0 -4px 6px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.12);
+}
+.clip::after { /* agujero del sujetador */
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 14px;
+  background: var(--rosa);
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
+}
+.tablilla-lila .clip::after { background: var(--lila); }
+
+.hoja {
+  background-color: #fffdfb;
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0, transparent 31px, #e8dff0 31px, #e8dff0 32px
+  );
+  border-radius: 12px;
+  padding: 22px 24px 28px;
+  min-height: 300px;
+}
+
+h1 {
+  font-size: 1.7rem;
+  margin: 0 0 14px;
+  text-align: center;
+  color: #7b6aa5;
+}
+.intro { text-align: center; margin-top: -6px; }
+
+/* ---------- Avisos ---------- */
+.aviso {
+  max-width: 820px;
+  margin: 0 auto 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.aviso-ok { background: var(--menta); }
+.aviso-error { background: #fbd0d0; color: #9b3b3b; }
+
+/* ---------- Formularios ---------- */
+.formulario { display: flex; flex-direction: column; gap: 14px; }
+.formulario label { display: flex; flex-direction: column; gap: 4px; font-weight: 700; font-size: .95rem; }
+.fila { display: flex; gap: 14px; flex-wrap: wrap; }
+.fila > * { flex: 1 1 180px; min-width: 0; }
+
+input[type="text"], input[type="number"], input[type="tel"],
+input[type="email"], input[type="file"], select, textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 9px 11px;
+  border: 2px solid var(--lila);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--texto);
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+}
+input:focus, select:focus, textarea:focus { border-color: #b7a6e0; }
+textarea { resize: vertical; }
+
+fieldset {
+  border: 2px dashed #cfc2ec;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fffafc;
+  min-width: 0;
+}
+legend { font-weight: 800; padding: 0 8px; color: #7b6aa5; }
+legend small { font-weight: 600; }
+
+.checks { display: flex; flex-wrap: wrap; gap: 10px; }
+.check {
+  flex-direction: row !important;
+  align-items: center;
+  font-weight: 600 !important;
+  background: #fff;
+  border: 2px solid var(--menta);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.destacado { background: var(--amarillo); padding: 10px 14px; border-radius: 12px; }
+.pregunta { font-weight: 700; margin: 0; }
+
+.foto-subir {
+  text-align: center;
+  background: var(--durazno);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--texto);
+  box-shadow: 0 4px 0 rgba(93,86,114,.2);
+  transition: transform .1s, box-shadow .1s;
+  text-align: center;
+}
+.btn:active { transform: translateY(3px); box-shadow: none; }
+.btn-menta { background: var(--menta); }
+.btn-rosa { background: #f7bcd0; }
+.formulario .fila .btn { flex: 1 1 140px; }
+
+/* ---------- Tarjetas de adopción ---------- */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+.tarjeta {
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(93,86,114,.12);
+  border-top: 6px solid var(--menta);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.tarjeta:nth-child(3n+2) { border-top-color: var(--lila); }
+.tarjeta:nth-child(3n+3) { border-top-color: var(--durazno); }
+.tarjeta h3 { margin: 4px 0 0; color: #7b6aa5; font-size: 1.25rem; }
+.tarjeta ul { list-style: none; padding: 0; margin: 0; font-size: .92rem; }
+.tarjeta li { padding: 2px 0; overflow-wrap: anywhere; }
+.foto {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--azul);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.foto img { width: 100%; height: 100%; object-fit: cover; }
+.emoji-foto { font-size: 4.5rem; }
+.notas { font-style: italic; font-size: .9rem; margin: 0; color: #8a819f; }
+.tarjeta .btn { margin-top: auto; }
+.vacio { text-align: center; font-weight: 700; }
+
+/* ---------- Galería de imágenes (Mascotas) ---------- */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+.galeria figure {
+  margin: 0;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px 8px 10px;
+  box-shadow: 0 4px 12px rgba(93,86,114,.12);
+  border-top: 6px solid var(--menta);
+  min-width: 0;
+}
+.galeria figure:nth-child(3n+2) { border-top-color: var(--lila); }
+.galeria figure:nth-child(3n+3) { border-top-color: var(--durazno); }
+.galeria img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.galeria figcaption {
+  text-align: center;
+  font-weight: 800;
+  margin-top: 6px;
+  color: #7b6aa5;
+}
+
+/* ---------- Modal de confirmación ---------- */
+.modal-fondo {
+  position: fixed;
+  inset: 0;
+  background: rgba(93, 86, 114, .35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+.modal {
+  background: var(--amarillo);
+  border-radius: 22px;
+  padding: 28px 26px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--sombra);
+  animation: aparecer .2s ease-out;
+}
+.modal-emoji { font-size: 3rem; }
+.modal p { font-size: 1.15rem; font-weight: 800; margin: 8px 0 18px; }
+.modal-botones { display: flex; gap: 12px; justify-content: center; }
+.modal-botones .btn { min-width: 110px; }
+
+.oculto { display: none !important; }
+
+@keyframes aparecer {
+  from { transform: scale(.9); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+
+/* ---------- Responsivo (celular) ---------- */
+@media (max-width: 600px) {
+  .contenedor { padding: 8px 16px 40px; }
+  .menu { padding: 14px 8px; gap: 8px; }
+  .menu a { padding: 8px 14px; font-size: .95rem; }
+
+  .tablilla { padding: 58px 12px 14px; margin-bottom: 26px; border-radius: 18px; }
+  .clip { width: 130px; height: 48px; }
+  .clip::after { width: 50px; }
+  .hoja { padding: 18px 14px 22px; border-radius: 10px; }
+  h1 { font-size: 1.4rem; }
+
+  /* Campos de a 2 por fila, como en PC */
+  .fila { gap: 10px; }
+  .fila > * { flex: 1 1 calc(50% - 5px); min-width: 0; }
+  .fila > fieldset { flex-basis: 100%; }
+  .formulario .fila .btn { flex: 1 1 calc(50% - 5px); }
+
+  /* Evita que iOS haga zoom al escribir */
+  input[type="text"], input[type="number"], input[type="tel"],
+  input[type="email"], select, textarea { font-size: 16px; }
+
+  .rejilla { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tarjeta { padding: 10px; gap: 6px; border-radius: 14px; }
+  .tarjeta h3 { font-size: 1.05rem; }
+  .tarjeta ul { font-size: .8rem; }
+  .tarjeta .btn { padding: 9px 8px; font-size: .9rem; width: 100%; }
+  .emoji-foto { font-size: 3rem; }
+  .notas { font-size: .8rem; }
+  .galeria { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .galeria figure { padding: 6px 6px 8px; }
+  .galeria figcaption { font-size: .9rem; }
+
+  .modal { padding: 22px 18px; }
+  .modal-botones { flex-direction: column; }
+  .modal-botones .btn { width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .galeria { grid-template-columns: 1fr; }
+  .tarjeta ul { font-size: .75rem; }
+  .destacado { font-size: .9rem; }
+}
+
+/* =========================================================
+   Ampliaciones: cuentas, administrador y listas
+   ========================================================= */
+
+/* Foto con emoji de respaldo (si la imagen no carga, se ve el emoji) */
+.foto { position: relative; }
+.foto img { position: absolute; inset: 0; }
+.foto-mini {
+  width: 72px;
+  flex: 0 0 72px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+}
+.foto-mini .emoji-foto { font-size: 2rem; }
+.foto-actual {
+  display: block;
+  max-width: 160px;
+  margin: 8px auto 0;
+  border-radius: 12px;
+}
+.foto-subir small { font-weight: 600; }
+
+/* Centrado y utilidades */
+.centrado { justify-content: center; text-align: center; }
+.acciones { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.acciones .inline, form.inline { display: inline; margin: 0; }
+.seccion { margin-bottom: 26px; }
+.seccion h2 { font-size: 1.2rem; color: #7b6aa5; margin: 0 0 10px; }
+.nota { font-size: .85rem; margin: 4px 0 0; color: #8a819f; }
+
+/* Botones pequeños y de colores */
+.btn-pequeno { padding: 7px 14px; font-size: .9rem; }
+.btn-azul { background: var(--azul); }
+
+/* Listas de tarjetas horizontales (mis mascotas, admin) */
+.lista { display: flex; flex-direction: column; gap: 12px; }
+.item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(93,86,114,.12);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.item-info { flex: 1 1 180px; min-width: 0; }
+.item-info h3 { margin: 0 0 4px; color: #7b6aa5; font-size: 1.1rem; overflow-wrap: anywhere; }
+.item-info p { margin: 2px 0; font-size: .92rem; overflow-wrap: anywhere; }
+.item .acciones { flex: 0 0 auto; }
+
+/* Estados */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .8rem;
+  background: var(--amarillo);
+  margin-top: 4px;
+}
+.badge-aprobada { background: var(--menta); }
+.badge-rechazada { background: #fbd0d0; color: #9b3b3b; }
+.badge-adoptada { background: var(--lila); }
+
+/* Datos completos de una solicitud */
+.detalle { list-style: none; padding: 0; margin: 8px 0 0; font-size: .9rem; }
+.detalle li { padding: 3px 0; overflow-wrap: anywhere; }
+details summary { cursor: pointer; font-weight: 700; color: #7b6aa5; margin-top: 6px; }
+
+/* Tabla del panel de administración */
+.tabla-wrap { overflow-x: auto; background: #fff; border-radius: 14px; padding: 6px; }
+table.tabla { width: 100%; border-collapse: collapse; font-size: .9rem; }
+table.tabla th, table.tabla td {
+  padding: 8px 6px;
+  border-bottom: 1px dashed #e8dff0;
+  text-align: left;
+  vertical-align: middle;
+}
+table.tabla th { color: #7b6aa5; font-weight: 800; white-space: nowrap; }
+table.tabla td .acciones { flex-wrap: nowrap; }
+
+@media (max-width: 600px) {
+  .item { padding: 10px; }
+  .foto-mini { width: 60px; flex-basis: 60px; }
+  table.tabla { font-size: .8rem; }
+  table.tabla td .acciones { flex-direction: column; align-items: stretch; }
+  table.tabla td .btn { width: 100%; }
+}

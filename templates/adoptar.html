@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block titulo %}Adoptar a {{ mascota.nombre }} · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla tablilla-lila">
+  <div class="hoja">
+    <h1>Adoptar a {{ mascota.nombre }}</h1>
+    <p class="intro">
+      {{ mascota.especie }} · {{ mascota.raza }} · {{ mascota.edad }} años
+    </p>
+
+    {% if ya_pidio %}
+      <p class="vacio">Ya enviaste una solicitud para {{ mascota.nombre }}. Espera la respuesta del administrador.</p>
+      <div class="fila centrado">
+        <a href="{{ url_for('adopcion') }}" class="btn btn-rosa">Volver</a>
+      </div>
+    {% else %}
+    <form method="post" class="formulario">
+      <fieldset>
+        <legend>Datos personales</legend>
+        <div class="fila">
+          <label>Nombre completo *<input type="text" name="nombre" required></label>
+          <label>Edad * <input type="number" name="edad" min="18" required></label>
+        </div>
+        <div class="fila">
+          <label>Teléfono *<input type="tel" name="telefono" required></label>
+          <label>Correo *<input type="email" name="correo" required></label>
+        </div>
+        <label>Dirección completa *<input type="text" name="direccion" required></label>
+        <label>Ocupación *<input type="text" name="ocupacion" required></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Hogar</legend>
+        <label>Tipo de vivienda *
+          <select name="vivienda" required>
+            <option>Casa con patio</option>
+            <option>Casa sin patio</option>
+            <option>Departamento</option>
+          </select>
+        </label>
+        <p class="pregunta">¿Tienes otras mascotas? *</p>
+        <div class="checks">
+          <label class="check"><input type="radio" name="otras_mascotas" value="sí" required> Sí</label>
+          <label class="check"><input type="radio" name="otras_mascotas" value="no"> No</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Experiencia</legend>
+        <label>¿Has tenido mascotas antes? *
+          <textarea name="experiencia" rows="2" required></textarea>
+        </label>
+        <label>¿Por qué quieres adoptar? *
+          <textarea name="motivo" rows="2" required></textarea>
+        </label>
+      </fieldset>
+
+      <label class="check destacado">
+        <input type="checkbox" name="compromiso" required>
+        Me comprometo a darle cuidados, alimento, vacunas y un hogar seguro
+      </label>
+
+      <div class="fila">
+        <a href="{{ url_for('adopcion') }}" class="btn btn-rosa">Cancelar</a>
+        <button type="submit" class="btn btn-menta">Enviar solicitud</button>
+      </div>
+    </form>
+    {% endif %}
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

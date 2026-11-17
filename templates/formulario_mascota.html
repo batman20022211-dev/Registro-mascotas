@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }} · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla">
+  <div class="hoja">
+    <h1>{{ titulo }}</h1>
+    <form method="post" action="{{ accion }}" enctype="multipart/form-data" class="formulario">
+
+      <div class="foto-subir">
+        <label for="foto">Foto de la mascota{% if not editando %} *{% endif %}</label>
+        {% if editando and valores.foto %}
+          <img class="foto-actual" src="{{ src_foto(valores.foto) }}" alt="Foto actual">
+        {% endif %}
+        <input type="file" id="foto" name="foto" accept="image/*" {% if not editando %}required{% endif %}>
+        {% if editando %}<small>Déjala vacía para conservar la foto actual.</small>{% endif %}
+      </div>
+
+      <div class="fila">
+        <label>Nombre *
+          <input type="text" name="nombre" required value="{{ valores.nombre or '' }}">
+        </label>
+        <label>Especie *
+          <select name="especie" required>
+            {% for e in especies %}
+              <option {% if valores.especie == e %}selected{% endif %}>{{ e }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+
+      <div class="fila">
+        <label>Raza * <input type="text" name="raza" required value="{{ valores.raza or '' }}"></label>
+        <label>Edad (años) * <input type="number" name="edad" min="0" step="0.5" required value="{{ valores.edad or '' }}"></label>
+      </div>
+
+      <div class="fila">
+        <label>Sexo *
+          <select name="sexo" required>
+            {% for s in ["Hembra", "Macho", "No sé"] %}
+              <option {% if valores.sexo == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Color * <input type="text" name="color" required value="{{ valores.color or '' }}"></label>
+        <label>Peso (kg) * <input type="number" name="peso" min="0" step="0.1" required value="{{ valores.peso or '' }}"></label>
+      </div>
+
+      <fieldset>
+        <legend>Vacunas * <small>(al menos una)</small></legend>
+        <div class="checks">
+          {% for v in vacunas %}
+            <label class="check">
+              <input type="checkbox" name="vacunas" value="{{ v }}" {% if v in valores.vacunas %}checked{% endif %}> {{ v }}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <div class="fila">
+        <label>Nombre del dueño * <input type="text" name="dueno" required value="{{ valores.dueno or '' }}"></label>
+        <label>Teléfono * <input type="tel" name="telefono" required value="{{ valores.telefono or '' }}"></label>
+      </div>
+
+      <label>Notas *
+        <textarea name="notas" rows="3" required placeholder="Carácter, alergias, cuidados...">{{ valores.notas or '' }}</textarea>
+      </label>
+
+      <fieldset>
+        <legend>¿Disponible para adopción? *</legend>
+        <div class="checks">
+          <label class="check"><input type="radio" name="en_adopcion" value="sí" required {% if valores.en_adopcion == 'sí' %}checked{% endif %}> Sí</label>
+          <label class="check"><input type="radio" name="en_adopcion" value="no" {% if valores.en_adopcion == 'no' %}checked{% endif %}> No</label>
+        </div>
+      </fieldset>
+
+      {% if mostrar_estado %}
+      <label>Estado de publicación
+        <select name="estado">
+          {% for e in estados %}
+            <option value="{{ e }}" {% if valores.estado == e %}selected{% endif %}>{{ estado_texto(e) }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      {% endif %}
+
+      <div class="fila">
+        {% if volver %}<a href="{{ volver }}" class="btn btn-rosa">Cancelar</a>{% endif %}
+        <button type="submit" class="btn btn-menta">{{ 'Guardar cambios' if editando else 'Guardar registro' }}</button>
+      </div>
+    </form>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

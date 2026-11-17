@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block titulo %}Administración · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla tablilla-lila">
+  <div class="hoja">
+    <h1>Acceso de administrador</h1>
+    <form method="post" class="formulario">
+      <label>Contraseña de administrador *
+        <input type="password" name="clave" required autocomplete="current-password">
+      </label>
+      <div class="fila">
+        <button type="submit" class="btn btn-menta">Entrar</button>
+      </div>
+    </form>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

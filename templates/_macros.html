@@ -1,0 +1,32 @@
+{# Foto de una mascota. Si no hay foto o la imagen no carga, se ve el emoji de la especie. #}
+{% macro foto(m, clase="foto") %}
+<div class="{{ clase }}">
+  <span class="emoji-foto" aria-hidden="true">{{ emoji(m.especie) }}</span>
+  {% if m.foto %}
+    <img src="{{ src_foto(m.foto) }}" alt="Foto de {{ m.nombre }}" loading="lazy" onerror="this.remove()">
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro tarjeta(m) %}
+<article class="tarjeta">
+  {{ foto(m) }}
+  <h3>{{ m.nombre }}</h3>
+  <ul>
+    <li><b>Especie:</b> {{ m.especie }}</li>
+    <li><b>Raza:</b> {{ m.raza }}</li>
+    <li><b>Edad:</b> {{ m.edad }} años</li>
+    <li><b>Sexo:</b> {{ m.sexo }}</li>
+    <li><b>Color:</b> {{ m.color }}</li>
+    <li><b>Peso:</b> {{ m.peso }} kg</li>
+    <li><b>Vacunas:</b> {{ m.vacunas|join(', ') }}</li>
+  </ul>
+  <p class="notas">“{{ m.notas }}”</p>
+  <button type="button" class="btn btn-rosa"
+          data-adoptar
+          data-nombre="{{ m.nombre }}"
+          data-url="{{ url_for('adoptar', mascota_id=m.id) }}">
+    Adoptar
+  </button>
+</article>
+{% endmacro %}

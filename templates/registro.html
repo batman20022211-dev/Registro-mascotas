@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div class="tablilla">
+  <div class="hoja">
+    <h1>Registro de mascota</h1>
+    <form method="post" enctype="multipart/form-data" class="formulario">
+
+      <div class="foto-subir">
+        <label for="foto">Foto de la mascota *</label>
+        <input type="file" id="foto" name="foto" accept="image/*" required>
+      </div>
+
+      <div class="fila">
+        <label>Nombre *
+          <input type="text" name="nombre" required>
+        </label>
+        <label>Especie *
+          <select name="especie" required>
+            {% for e in especies %}<option>{{ e }}</option>{% endfor %}
+          </select>
+        </label>
+      </div>
+
+      <div class="fila">
+        <label>Raza * <input type="text" name="raza" required></label>
+        <label>Edad (años) * <input type="number" name="edad" min="0" step="0.5" required></label>
+      </div>
+
+      <div class="fila">
+        <label>Sexo *
+          <select name="sexo" required>
+            <option>Hembra</option>
+            <option>Macho</option>
+            <option>No sé</option>
+          </select>
+        </label>
+        <label>Color * <input type="text" name="color" required></label>
+        <label>Peso (kg) * <input type="number" name="peso" min="0" step="0.1" required></label>
+      </div>
+
+      <fieldset>
+        <legend>Vacunas * <small>(al menos una)</small></legend>
+        <div class="checks">
+          {% for v in vacunas %}
+            <label class="check"><input type="checkbox" name="vacunas" value="{{ v }}"> {{ v }}</label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <div class="fila">
+        <label>Nombre del dueño * <input type="text" name="dueno" required></label>
+        <label>Teléfono * <input type="tel" name="telefono" required></label>
+      </div>
+
+      <label>Notas *
+        <textarea name="notas" rows="3" required placeholder="Carácter, alergias, cuidados..."></textarea>
+      </label>
+
+      <fieldset>
+        <legend>¿Disponible para adopción? *</legend>
+        <div class="checks">
+          <label class="check"><input type="radio" name="en_adopcion" value="sí" required> Sí</label>
+          <label class="check"><input type="radio" name="en_adopcion" value="no"> No</label>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-menta">Guardar registro</button>
+    </form>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}

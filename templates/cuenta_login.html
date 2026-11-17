@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar · Registro de Mascotas{% endblock %}
+{% block contenido %}
+<div class="tablilla tablilla-lila">
+  <div class="hoja">
+    <h1>Iniciar sesión</h1>
+    <form method="post" class="formulario">
+      <label>Correo *
+        <input type="email" name="correo" required autocomplete="email">
+      </label>
+      <label>Contraseña *
+        <input type="password" name="contrasena" required autocomplete="current-password">
+      </label>
+      <div class="fila">
+        <a href="{{ url_for('cuenta_registro') }}" class="btn btn-rosa">Crear cuenta</a>
+        <button type="submit" class="btn btn-menta">Entrar</button>
+      </div>
+    </form>
+  </div>
+  <div class="clip"></div>
+</div>
+{% endblock %}
